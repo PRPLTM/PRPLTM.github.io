@@ -19,14 +19,14 @@
 
 .dark {
     --theme: #1e283b;
-    --entry: #2e2e33;
+    --entry: #2c3b56;
     --primary: rgba(255, 255, 255, 0.84);
     --secondary: rgba(255, 255, 255, 0.56);
     --tertiary: rgba(255, 255, 255, 0.16);
     --content: rgba(255, 255, 255, 0.74);
     --hljs-bg: #2e2e33;
     --code-bg: #2c3b56;
-    --border: #333;
+    --border: #273042;
 }
 
 .list {
