@@ -2,6 +2,7 @@
 title: "Abusing Internet Calendaring and Scheduling (iCal)"
 description: "Something"
 date: "2021-06-21"
+author: "Dan Lussier"
 draft: true
 ---
 

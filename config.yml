@@ -8,8 +8,6 @@ theme: PaperMod
 
 params:
 
-  custom_css: "css/timeline.css"
-
   title: PRPLTM
   description: "Purple team writeups."
   author: ["DanSec", "TerrorByteSec"]
