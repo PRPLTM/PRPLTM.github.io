@@ -1,0 +1,51 @@
+baseURL: "https://prpltm.github.io/"
+languageCode: "en-us"
+title: PRPLTM
+paginate: 5
+theme: PaperMod
+
+
+
+params:
+
+  custom_css: "css/timeline.css"
+
+  title: PRPLTM
+  description: "Purple team writeups."
+  author: ["DanSec", "TerrorByteSec"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: dark
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowCodeCopyBbuttons: true
+  
+  homeInfoParams:
+    Title: "PRPLTM"
+
+  profileMode:
+    enabled: true
+    subtitle: "Purple team writeups."
+
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/DanSec_"
+    - name: twitter
+      url: "https://twitter.com/TerrorByteSec"
+
+
+menu:
+  main:
+    - identifier: categories
+      name: categories
+      url: /categories/
+      weight: 150
+    - identifier: about
+      name: about
+      url: /about/
+    - identifier: posts
+      name: posts
+      url: /posts/
+      weight: 100
+
+
