@@ -150,7 +150,7 @@ As soon as you have achieved a successful phish or malicious payload deployment,
 
 ## Detection Opportunities
 
-The below detections are written in YARA-L ([Chronicle](https://chronicle.security/)), you can convert them over at SOCPrime to your favorite platform, or just take the TTP's out of the rules and write them in whatever platform your detections are in.
+The below detections are written in YARA-L ([Chronicle](https://chronicle.security/)), you can convert them over at [SOCPrime](https://uncoder.io/) to your favorite platform, or just take the TTP's out of the rules and write them in whatever platform your detections are in.
 
 #### Detect via ProcessLaunch event
 
