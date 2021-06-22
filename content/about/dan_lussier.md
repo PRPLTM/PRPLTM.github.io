@@ -1,10 +1,9 @@
 ---
 title: "Dan Lussier"
 date: 2021-06-18T13:24:56-04:00
+author: "Dan Lussier"
 draft: false
 ---
-
-# About
 
 ## whoami  
 
