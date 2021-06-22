@@ -1,8 +1,8 @@
 ---
 title: "Abusing Internet Calendaring and Scheduling (iCal)"
-description: "Something"
+description: "Purple team assessment utilizing iCal for phishing persistence"
 date: "2021-06-21"
-author: "Dan Lussier"
+author: "Dan Lussier, Eric Gonzalez, Sam Ferguson"
 draft: true
 ---
 
@@ -11,6 +11,8 @@ draft: true
 ## The Basics
 
 The research below was conducted by Eric Gonzalez [@elbori](https://twitter.com/elbori) and Dan Lussier [@dansec_](https://twitter.com/dansec_) with a special shout out to Sam Ferguson (@??). All content is for educational purposes and focuses on all aspects (investigation, weaponizing, detection & mitigation). The focus of this article is about abusing iCal files (.ics extension) within Outlook.
+
+Note: This entire method will require user interaction, and you may not always be able to achieve this during a campaign, make sure whatever your campaign is builds trust with the targets.
 
 ### What is iCal?
 
