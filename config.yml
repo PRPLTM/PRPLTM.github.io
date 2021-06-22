@@ -27,9 +27,11 @@ params:
 
   socialIcons:
     - name: twitter
-      url: "https://twitter.com/DanSec_"
+      url: "https://twitter.com/dansec_"
     - name: twitter
       url: "https://twitter.com/TerrorByteSec"
+    - name: twitter
+      url: "https://twitter.com/elbori"
 
 
 menu:
