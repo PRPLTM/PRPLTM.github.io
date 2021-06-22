@@ -3,6 +3,10 @@ title: "Abusing Internet Calendaring and Scheduling (iCal)"
 description: "Purple team assessment utilizing iCal for phishing persistence"
 date: "2021-06-21"
 author: "Dan Lussier, Eric Gonzalez, Sam Ferguson"
+categories:
+  - "Purple Team"
+tags:
+  - "Purple Team"
 draft: true
 ---
 
