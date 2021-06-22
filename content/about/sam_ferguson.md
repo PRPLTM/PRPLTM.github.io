@@ -5,4 +5,4 @@ author: "Sam Ferguson"
 draft: false
 ---
 
-Passionate about all things in the world of offensive security. Recent Ball State grad working in information security for CVS Health.  
+Passionate about all things in the world of offensive security. Recent Ball State grad who currently works in information security.
