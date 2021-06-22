@@ -10,21 +10,21 @@ draft: true
 
 ## The Basics
 
-The research below was conducted by Eric Gonzalez [@elbori](https://twitter.com/elbori) and Dan Lussier [@dansec_](https://twitter.com/dansec_) with a special shout out to Sam Ferguson (@??). All content is for educational purposes for a less commonly utilized persistent phishing mechanism that allows bypassing of email gateway providers. The focus of this article is abusing iCal files (.ics extension) within Outlook.
+The research below was conducted by Eric Gonzalez [@elbori](https://twitter.com/elbori) and Dan Lussier [@dansec_](https://twitter.com/dansec_) with a special shout out to Sam Ferguson (@??). All content is for educational purposes and focuses on all aspects (investigation, weaponizing, detection & mitigation). The focus of this article is about abusing iCal files (.ics extension) within Outlook.
 
 ### What is iCal?
 
-iCal `ics` are files that are created when setting up "internet feed" based calendar events. They allow for great convenience for common scenarios like sporting events where times and details may change frequently, without the end-user needing to perform any action.
+iCal `ics` are files that are created when setting up internet feed-based calendar events. They allow for great convenience for common scenarios like sporting events where times and details may change frequently, without the end-user needing to perform any action.
 
-The iCal RFC provides documentation around what the files can be used for, and what they can't, make sure to check out [RFC5545](https://datatracker.ietf.org/doc/html/rfc5545) to get an understanding of how iCal files can be constructed (hint: they're txt files).
+The iCal RFC provides documentation around what the files can be used for, make sure to check out [RFC5545](https://datatracker.ietf.org/doc/html/rfc5545) to get an understanding of how iCal files can be constructed (hint: they're text files).
 
-What makes these files interesting from a threat actor perspective is once a user imports this calendar it can be modified at-will by an attacker to change its contents, and as long as the threat actor does not make it look too suspicious, they'll have a persistent method to push potentially malicious content to a user and have it pop Outlook notifications so the user reviews the calendar event.
+What makes these files interesting from a threat actor perspective is once a user imports this calendar it can be modified at-will by an attacker to change its contents, and as long as the threat actor does not make it look too suspicious, they'll have a persistent method to push potentially malicious content to a user and have it pop Outlook reminders so the user checks the calendar event regularly.
 
 ### This isn't new
 
-Before publishing this article we researched around and did find that threat actors have been abusing iCal functionality for the last few years in a similar way, the biggest difference is how we present the abuse & persistent way to continue to have a hook into a users environment.
+Before publishing this article we looked around and did find that threat actors have been abusing iCal functionality for the last few years in a similar way (and in 2008 [CVE-2008-1035](https://www.cvedetails.com/cve/CVE-2008-1035/)). The difference between these methods is how we present the abuse & potential persistent way to continue to have a hook into a users environment via a calendar event.
 
-For reference check out the articles below on how other threat actors are abusing iCal
+For reference check out the articles below on how other threat actors are abusing iCal.
 
 [iPhone Calendar Spam Attacks](https://blog.malwarebytes.com/malwarebytes-news/2021/05/iphone-calendar-spam-attacks-on-the-rise/) 
 
@@ -34,11 +34,11 @@ For reference check out the articles below on how other threat actors are abusin
 
 ## Identification
 
-While working a recent investigation we identified a machine learning alert for "beacon-type" connectivity from a users asset to a gibberish/foreign registered domain hosted on international IP space.
+During a recent investigation we identified a machine learning alert for "beacon-type" connectivity from a users asset to a gibberish/foreign registered domain hosted in international IP space.
 
 ![dsml_alert](/img/ical_v1/dsml_alert.png)
 
-Upon investigation we originally assumed it would be related to Chrome Extensions gone rogue (the most common), or something similar, but quickly identified via proxy logs that the users Outlook client was making the network calls.
+Upon investigation we originally assumed it would be related to Chrome Extensions gone rogue, but quickly identified via proxy logs that the users Outlook client was making the network calls.
 
 ![asset_view_nysaz_beacon](/img/ical_v1/asset_view_nysaz_beacon.png)
 
@@ -52,9 +52,9 @@ This all turned out to be legitimate activity, the nysaz domain was once utilize
 
 ## Turning malicious
 
-As we concluded our investigation into this particular case, we started to think how this could be abused. The primary method would be by identifying expiring domains (or expired domains) that once hosted iCal files (or compromising a site hosting these files). If a threat actor can perform this activity, they can constantly modify the iCal file being pulled and change it from "Events about your kids Soccer games" to "Events about how we're going to phish you and have you load a malicious payload on your machine." 
+As we concluded our investigation into this particular case we started to think how this could be abused. The primary method would be by identifying expiring domains (or expired domains) that once hosted iCal files (or compromising a site hosting these files). If a threat actor can perform this activity, they can constantly modify the iCal file being pulled and change it from "Events about your kids Soccer games" to "Events about how we're going to phish you and have you load a malicious payload on your machine." 
 
-There would be some work to be done here, such as only allowing access from useragent's that look like Outlook so you can target users that more than likely are sourcing from something other than a personal device.
+There would be some work to be done here, such as only allowing access from UserAgent's that look like Outlook so you can target users that more than likely are sourcing from something other than a personal device.
 
 ---
 
@@ -62,43 +62,42 @@ There would be some work to be done here, such as only allowing access from user
 
 ### The challenge
 
-When setting up various purple/red team activities against most organizations trying to bypass email gateway providers can prove to be challenging. Many of them have attachment inspection & URL inspection (crawling a URL to identify a malicious payload at the end). After hitting "send" during a campaign you never know if it'll land, or be a handful of bounce-backs from an email gateway provider. 
+When setting up various purple/red team activities against most organizations trying to bypass email gateway providers can prove to be challenging. Many of them have attachment inspection & URL inspection (crawling a URL to identify a malicious payload, or phishing template). After hitting `send` during a campaign you never know if it'll land, or if it'll be a handful of bounce-backs from an email gateway provider. 
 
 ### The iCal Solution
 
 If your engagement is more long-term and doesn't need to be rushed (often the case for purple team exercises), utilizing custom iCal events are an excellent way to hold a persistent "feed" to an end users mailbox where you can send constant updates (benign and malicious). 
 
-Below is a set of steps you can take to have a level of success with this type fo campaign.
+Below is a set of steps you can take to find success in this form of a phishing campaign.
 
 {{< timeline >}}
   {{< container class="container right" step="1" title="">}}
-    Create a non-malicious ics (iCal) format file. The easiest way is to use the built-in Calendar app in MacOS, alternatively <a href="https://ical.marudot.com/">iCal Event Maker</a> themed around community updates for the target company. For the first ICS file make sure alarms are turned off.
+    Create a non-malicious `ics` (iCal) formatted file. The easiest way is to use the built-in Calendar app in MacOS, alternatively <a href="https://ical.marudot.com/">iCal Event Maker</a> works. You'll want to build a theme around community updates for the target company. For the first `ics` file make sure alarms are turned off, we just want to establish a basic connection to the users calendar.
   {{< /container >}}
   {{< container class="container left" step="2" title="">}}
-    Host your newly created file on a trusted source (Azure, Firebase, AWS, AddEvent, SCHED).
+    Host your newly created file on a trusted source (Azure Blob (windows.net), Firebase, AWS, AddEvent, SCHED).
   {{< /container >}}
     {{< container class="container right" step="3" title="">}}
-    Signup for a free Outlook.com account with organizationName@outlook.com or similar. If you'd prefer you can use any hosting provider here (or custom domain), but outlook.com is often trusted.
+    Signup for a free Outlook.com account with organizationName@outlook.com or similar. If you'd prefer you can use any hosting provider here (or custom domain), but outlook.com often fly's under the radar as long as you're not mass-blasting a campaign. 
   {{< /container >}}
     {{< container class="container left" step="4" title="">}}
-    Create a malicious phishing themed email of your choice. Coming from the "Communications" team with a "new method to get company updates" seems to work pretty well. Make sure to utilize the webcal protocol instead of https so when the user opens the file it prompts to "OpenWith" and they can choose Outlook.
+    Create a malicious themed email of your choice. Coming from the "Communications" team with a "new method to get company updates" seems to work pretty well. Make sure to utilize the webcal:// protocol instead of https:// so when the user opens the file it prompts to "OpenWith" and they can choose Outlook from their browser.
   {{< /container >}}
     {{< container class="container right" step="5" title="">}}
-    Embed your custom ics which should be non-malicious and send your phishing email to a target of individuals and watch your access logs to verify users are grabbing the file. You should start to see Outlook useragent's connecting in depending on what you set for frequency to pull updates of the ics file.
+    Embed your custom `ics` in a link from step 2 which should be non-malicious and send your phishing email to a target of individuals and watch your access logs to verify users are grabbing the file. You should start to see Outlook useragent's connecting in depending on what you set for frequency to pull updates of the ics file.
   {{< /container >}}
       {{< container class="container left" step="6" title="">}}
-    Wait a couple of days and modify your custom ics file. You can add a URL to a malicious site to phish credentials, or download a malicious file (Word/Excel document around the community?). Add an ALARM to your ics so a reminder pops up after your update (5 minutes before event).
+    Wait a couple of days (maybe even a week) and modify your `ics` file. You can add a URL to a malicious site to phish credentials, or download a malicious file (Word/Excel document talking about upcoming community events). Add an ALARM to your `ics` so a reminder pops up after your update (5 minutes before event).
   {{< /container >}}
       {{< container class="container right" step="7" title="">}}
-    Wait for payload execution or credentials to come in. Because you sent this in days prior it's established in the users calendar and you can pass any updates you want to the calendar invite, at any time. If you see users grab your malicious payload or they're phished, switch the calendar back to a benign state so the blue team can't see the malicious calendar invite.
+    Wait for payload execution or credentials to come in. Because you sent this in days prior it's established in the users calendar and you can pass any updates you want to the calendar invite, at any time by simply modifying the `ics` file. If you see users grab your malicious payload or credentials are harvested, switch the calendar back to a benign state so the blue team can't see the malicious calendar invite.
   {{< /container >}}
 {{< /timeline >}}
 
 The process outlined above will need to be tweaked to fit your engagement, so make sure to identify how you want to build and take action. A couple of other options to use for generating and updating your iCal file constantly would be [SCHED](https://www.sched.com) or [AddEvent](https://addevent.com). The advantage to using established platforms like these are the domain may be trusted in an environment and not look malicious to the blue team. If you have access to a MacOS device, you can also use iCal which will generate a unique `*.icloud.com` domain for your ICS file.
 
-Here is a sample iCal file that was generated using an online iCal generator and had some HTML added to it, this should be your "second stage" calendar update you should deliver a few days (or a week or two) after as this one will include malicious content. The first one should have a decent customized HTML template to make it feel like it fits in with the targets company message (images/etc). 
+Here is a sample iCal file that was generated using an online iCal generator and had some HTML added to it, this should be your "second stage" calendar update that will contain malicious content. The first one should have a customized HTML template to make it feel like it fits in with the targets company message (images/etc). 
 
-<small>This template will allow outlook to update every minute, change this!</small> 
 
 ```
 BEGIN:VCALENDAR
@@ -141,19 +140,17 @@ END:VEVENT
 END:VCALENDAR
 ```
 
-This ics update will allow you to deliver a malicious payload, or a phishing URL all while bypassing any email gateway controls.
-
-As soon as you have achieved a successful phish or malicious payload deployment, immediately change the ics file back to a more benign version in case there is an investigation, chances are the blue team won't figure out there is a malicious ICS file as long as you're constantly updating it to look like a normal calendar event.
+As soon as you have achieved a successful phish or malicious payload deployment, immediately change the `ics` file back to a more benign version in case there is an investigation, chances are the blue team won't figure out there is a malicious `ics` file as long as you're constantly updating it to look like a normal calendar event.
 
 ---
 
-## Detection Opporunities
+## Detection Opportunities
 
-The below detections are written in YARA-L (Chronicle Detection Language), you can convert them over at SOCPrime to your favorite platform, or just take the TTP's out of the rules and write them in whatever platform your detections are in.
+The below detections are written in YARA-L ([Chronicle](https://chronicle.security/)), you can convert them over at SOCPrime to your favorite platform, or just take the TTP's out of the rules and write them in whatever platform your detections are in.
 
 #### Detect via ProcessLaunch event
 
-This rule will work best for most people who have access to Sysmon/EDR telemetry, it looks for Outlook launching a connection via the webcal:// protocol.
+This rule will work best for most people who have access to Sysmon/EDR telemetry, it looks for Outlook launching a connection via the webcal:// protocol. If you have an EDR solution, you could turn this into a custom prevention so it's mitigated at launch.
 
 ```
 rule detect_iCal_processLaunch {
