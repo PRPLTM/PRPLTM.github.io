@@ -7,4 +7,4 @@ draft: false
 
 ## whoami  
 
-Someone who doesn't put a lot of information in an about page, but I do enjoy information security, and have been working in various IT positions for 20+ years, and information security for 10+ years.
+Dan Lussier has over 20 years working in some form of information security, with a focus on threat hunting, hacking & red+blue teaming. Dan has worked many years as an incident responder as well, and spends a lot of his free time working on side projects related to information security.
