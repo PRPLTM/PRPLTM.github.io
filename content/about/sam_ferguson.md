@@ -5,4 +5,6 @@ author: "Sam Ferguson"
 draft: false
 ---
 
+## whoami
+
 Passionate about all things in the world of offensive security. Recent Ball State grad who currently works in information security.
