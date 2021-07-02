@@ -48,7 +48,7 @@ Upon investigation we originally assumed it would be related to Chrome Extension
 
 We can see in the image above that every 30 minutes a call was being made to `nysaz[.]com`. Upon further investigation we could see it was attempting to pull the following URL (this site is now dead): 
 
-`hxxp://www[.]nysaz[.]com/DesktopModules/sSchedule/sSchedule.Web/Services/ExportToICalendar.ashx?portalId=4574&id=40868561&key=JRHPKMCL&format=ical"`
+`hxxp://www[.]nysaz[.]com/DesktopModules/sSchedule/sSchedule.Web/Services/ExportToICalendar.ashx?portalId=0000&id=0000&key=0000&format=ical"`
 
 The useragent associated to this activity was `Microsoft Office/16.0 (Windows NT 10.0; Microsoft Outlook 16.0.13127; Pro)` which helped us identify the mix of iCal file being accessed & Outlook making the call.
 
@@ -66,7 +66,7 @@ There would be some work to be done here, such as only allowing access from User
 
 ### The challenge
 
-When setting up various purple/red team activities against most organizations trying to bypass email gateway providers can prove to be challenging. Many of them have attachment inspection & URL inspection (crawling a URL to identify a malicious payload, or phishing template). After hitting `send` during a campaign you never know if it'll land, or if it'll be a handful of bounce-backs from an email gateway provider. 
+When setting up various purple/red team activities against most organizations, trying to bypass email gateway providers can prove to be challenging. Many of them have attachment inspection & URL inspection (crawling a URL to identify a malicious payload, or phishing template). After hitting `send` during a campaign you never know if it'll land, or if it'll be a handful of bounce-backs from an email gateway provider. 
 
 ### The iCal Solution
 
@@ -76,7 +76,7 @@ Below is a set of steps you can take to find success in this form of a phishing 
 
 {{< timeline >}}
   {{< container class="container right" step="1" title="">}}
-    Create a non-malicious `ics` (iCal) formatted file. The easiest way is to use the built-in Calendar app in MacOS, alternatively <a href="https://ical.marudot.com/">iCal Event Maker</a> works. You'll want to build a theme around community updates for the target company. For the first `ics` file make sure alarms are turned off, we just want to establish a basic connection to the users calendar.
+    Create a non-malicious ics (iCal) formatted file. The easiest way is to use the built-in Calendar app in MacOS, alternatively <a href="https://ical.marudot.com/">iCal Event Maker</a> works. You'll want to build a theme around community updates for the target company. For the first ics file make sure alarms are turned off, we just want to establish a basic connection to the users calendar.
   {{< /container >}}
   {{< container class="container left" step="2" title="">}}
     Host your newly created file on a trusted source (Azure Blob (windows.net), Firebase, AWS, AddEvent, SCHED).
@@ -88,15 +88,16 @@ Below is a set of steps you can take to find success in this form of a phishing 
     Create a malicious themed email of your choice. Coming from the "Communications" team with a "new method to get company updates" seems to work pretty well. Make sure to utilize the webcal:// protocol instead of https:// so when the user opens the file it prompts to "OpenWith" and they can choose Outlook from their browser.
   {{< /container >}}
     {{< container class="container right" step="5" title="">}}
-    Embed your custom `ics` in a link from step 2 which should be non-malicious and send your phishing email to a target of individuals and watch your access logs to verify users are grabbing the file. You should start to see Outlook useragent's connecting in depending on what you set for frequency to pull updates of the ics file.
+    Embed your custom ics in a link from step 2 which should be non-malicious and send your phishing email to a target of individuals and watch your access logs to verify users are grabbing the file. You should start to see Outlook useragent's connecting in depending on what you set for frequency to pull updates of the ics file.
   {{< /container >}}
       {{< container class="container left" step="6" title="">}}
-    Wait a couple of days (maybe even a week) and modify your `ics` file. You can add a URL to a malicious site to phish credentials, or download a malicious file (Word/Excel document talking about upcoming community events). Add an ALARM to your `ics` so a reminder pops up after your update (5 minutes before event).
+    Wait a couple of days (maybe even a week) and modify your ics file. You can add a URL to a malicious site to phish credentials, or download a malicious file (Word/Excel document talking about upcoming community events). Add an ALARM to your ics so a reminder pops up after your update (5 minutes before event).
   {{< /container >}}
       {{< container class="container right" step="7" title="">}}
-    Wait for payload execution or credentials to come in. Because you sent this in days prior it's established in the users calendar and you can pass any updates you want to the calendar invite, at any time by simply modifying the `ics` file. If you see users grab your malicious payload or credentials are harvested, switch the calendar back to a benign state so the blue team can't see the malicious calendar invite.
+    Wait for payload execution or credentials to come in. Because you sent this in days prior it's established in the users calendar and you can pass any updates you want to the calendar invite, at any time by simply modifying the ics file. If you see users grab your malicious payload or credentials are harvested, switch the calendar back to a benign state so the blue team can't see the malicious calendar invite.
   {{< /container >}}
 {{< /timeline >}}
+
 
 The process outlined above will need to be tweaked to fit your engagement, so make sure to identify how you want to build and take action. A couple of other options to use for generating and updating your iCal file constantly would be [SCHED](https://www.sched.com) or [AddEvent](https://addevent.com). The advantage to using established platforms like these are the domain may be trusted in an environment and not look malicious to the blue team. If you have access to a MacOS device, you can also use iCal which will generate a unique `*.icloud.com` domain for your ICS file.
 
