@@ -10,9 +10,10 @@ params:
 
   title: PRPLTM
   description: "Purple team writeups."
-  author: ["DanSec", "TerrorByteSec"]
+  author: ["DanSec", "AffineSecurity"]
   DateFormat: "January 2, 2006"
   defaultTheme: dark
+  og_image: "/img/ical_v1/ical_sec.png"
 
   ShowReadingTime: true
   ShowShareButtons: true

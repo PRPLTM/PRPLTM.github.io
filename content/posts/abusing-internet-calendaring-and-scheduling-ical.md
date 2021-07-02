@@ -5,6 +5,7 @@ date: "2021-06-21"
 author: "Dan Lussier, Eric Gonzalez, Sam Ferguson"
 categories: ["Purple Team"]
 tags: ["Purple Team"]
+og_image: "/img/ical_v1/ical_sec.png"
 draft: false
 ---
 

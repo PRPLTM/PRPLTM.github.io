@@ -32,6 +32,13 @@
 {{- if .Site.Params.analytics.bing.SiteVerificationTag }}
 <meta name="msvalidate.01" content="{{ .Site.Params.analytics.bing.SiteVerificationTag }}" />
 {{- end }}
+{{ if .Params.og_image }}
+<meta property="og:image" content="https://prpltm.github.io{{ .Params.og_image | relURL }}"/>
+<meta property="og:image:secure_url" content="{{ .Params.og_image | absURL }}"/>
+{{ else }}
+<meta property="og:image" content="https://prpltm.github.io{{ .Site.Params.og_image | relURL }}"/>
+<meta property="og:image:secure_url" content="{{ .Site.Params.og_image | absURL }}"/>
+{{ end }}
 
 {{- /* Styles */}}
 {{- $theme_vars := (resources.Get "css/core/theme-vars.css") }}
